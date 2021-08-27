@@ -7,8 +7,6 @@
 <body>
 
 <script>
-
-    try {
         const value = localStorage.getItem('smthKey');
 
         if(!value) localStorage.setItem('smthKey', '12345');
@@ -23,35 +21,6 @@
 
             localStorage.setItem(data.key, data.value)
         })
-    } catch (e) {
-        console.log('!!!!! e', e)
-    }
-
-    const openRequest = indexedDB.open('rdb');
-
-    const id = '12345';
-
-    openRequest.onsuccess = function () {
-        const db = openRequest.result;
-
-        const transaction = db.transaction('user', 'readwrite');
-        const user = transaction.objectStore('user');
-        user.get('ruid').onsuccess = function (event) {
-            const { result } = event.target;
-            if (!result) {
-                user.put(id, 'ruid');
-            }
-            db.close();
-        };
-    };
-
-    openRequest.onupgradeneeded = function () {
-        const db = openRequest.result;
-        if (!db.objectStoreNames.contains('user')) {
-            db.createObjectStore('user');
-        }
-    };
-
 
 </script>
 
