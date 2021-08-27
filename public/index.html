@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+    const value = localStorage.getItem('smthKey');
+
+    if(!value) localStorage.setItem('smthKey', '12345');
+
+    window.addEventListener('message', (e)=>{
+        const { data } = e;
+
+        console.log('!!!!! data', data);
+
+        localStorage.setItem(data.key, data.value)
+    })
+
+
+</script>
+
+</body>
+</html>
