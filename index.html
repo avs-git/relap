@@ -11,8 +11,11 @@
 
         if(!value) localStorage.setItem('smthKey', '12345');
 
-        const inputMessage = localStorage.getItem('inputMessage');
-        console.log('!!!!! inputMessage', inputMessage);
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+
+            console.log('!!!!! localStorage', {[key]: localStorage.getItem(key)});
+        }
 
         window.addEventListener('message', (e)=>{
             const { data } = e;
