@@ -7,11 +7,11 @@
 <body>
 
 <script>
-    const value = localStorage.getItem('smthKey');
+    const value = this.window.localStorage.getItem('smthKey');
 
-    if(!value) localStorage.setItem('smthKey', '12345');
+    if(!value) this.localStorage.setItem('smthKey', '12345');
 
-    const inputMessage = localStorage.getItem('inputMessage');
+    const inputMessage = this.localStorage.getItem('inputMessage');
     console.log('!!!!! inputMessage', inputMessage);
 
     window.addEventListener('message', (e)=>{
@@ -27,26 +27,26 @@
 
     const id = '12345';
 
-    openRequest.onsuccess = function () {
-        const db = openRequest.result;
-
-        const transaction = db.transaction('user', 'readwrite');
-        const user = transaction.objectStore('user');
-        user.get('ruid').onsuccess = function (event) {
-            const { result } = event.target;
-            if (!result) {
-                user.put(id, 'ruid');
-            }
-            db.close();
-        };
-    };
-
-    openRequest.onupgradeneeded = function () {
-        const db = openRequest.result;
-        if (!db.objectStoreNames.contains('user')) {
-            db.createObjectStore('user');
-        }
-    };
+    // openRequest.onsuccess = function () {
+    //     const db = openRequest.result;
+    //
+    //     const transaction = db.transaction('user', 'readwrite');
+    //     const user = transaction.objectStore('user');
+    //     user.get('ruid').onsuccess = function (event) {
+    //         const { result } = event.target;
+    //         if (!result) {
+    //             user.put(id, 'ruid');
+    //         }
+    //         db.close();
+    //     };
+    // };
+    //
+    // openRequest.onupgradeneeded = function () {
+    //     const db = openRequest.result;
+    //     if (!db.objectStoreNames.contains('user')) {
+    //         db.createObjectStore('user');
+    //     }
+    // };
 
 
 </script>
