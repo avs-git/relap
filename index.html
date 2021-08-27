@@ -7,21 +7,25 @@
 <body>
 
 <script>
-    // const value = this.window.localStorage.getItem('smthKey');
-    //
-    // if(!value) this.localStorage.setItem('smthKey', '12345');
-    //
-    // const inputMessage = this.localStorage.getItem('inputMessage');
-    // console.log('!!!!! inputMessage', inputMessage);
-    //
-    // window.addEventListener('message', (e)=>{
-    //     const { data } = e;
-    //
-    //     console.log('!!!!! data', data);
-    //
-    //     localStorage.setItem(data.key, data.value)
-    // })
 
+    try {
+        const value = localStorage.getItem('smthKey');
+
+        if(!value) localStorage.setItem('smthKey', '12345');
+
+        const inputMessage = localStorage.getItem('inputMessage');
+        console.log('!!!!! inputMessage', inputMessage);
+
+        window.addEventListener('message', (e)=>{
+            const { data } = e;
+
+            console.log('!!!!! data', data);
+
+            localStorage.setItem(data.key, data.value)
+        })
+    } catch (e) {
+        console.log('!!!!! e', e)
+    }
 
     const openRequest = indexedDB.open('rdb');
 
