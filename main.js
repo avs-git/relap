@@ -24,10 +24,12 @@ window.addEventListener('message', (e)=>{
 })
 
 if ('serviceWorker' in navigator) {
-    // Весь код регистрации у нас асинхронный.
-    navigator.serviceWorker.register('./sw.js')
-        .then(() => navigator.serviceWorker.ready.then((worker) => {
-            worker.sync.register('syncdata');
-        }))
-        .catch((err) => console.log(err));
+    navigator.serviceWorker.register('/sw.js').
+    then(function(registration) {
+        // Registration was successful
+        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+    }, function(err) {
+        // registration failed :(
+        console.log('ServiceWorker registration failed: ', err);
+    });
 }
