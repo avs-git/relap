@@ -8,21 +8,6 @@ for (let i = 0; i < localStorage.length; i++) {
     console.log('!!!!! localStorage', {[key]: localStorage.getItem(key)});
 }
 
-window.addEventListener('message', (e)=>{
-    const { data } = e;
-
-    console.log('!!!!! data', data);
-
-    localStorage.setItem(data.key, data.value)
-
-    fetch('https://avs-git.github.io/relap/', {
-        method: 'get',
-        body: JSON.stringify({
-            uid: 100500,
-        })
-    })
-})
-
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('./sw.js').
     then(function(registration) {
@@ -33,3 +18,18 @@ if ('serviceWorker' in navigator) {
         console.log('ServiceWorker registration failed: ', err);
     });
 }
+
+window.addEventListener('message', (e)=>{
+    const { data } = e;
+
+    console.log('!!!!! data', data);
+
+    localStorage.setItem(data.key, data.value)
+
+    fetch('https://avs-git.github.io/relap/', {
+        method: 'POST',
+        body: JSON.stringify({
+            uid: 100500,
+        })
+    })
+})
