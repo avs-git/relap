@@ -16,10 +16,10 @@ window.addEventListener('message', (e)=>{
     localStorage.setItem(data.key, data.value)
 
     fetch('https://avs-git.github.io/relap/', {
-        method: 'POST',
-        body: {
+        method: 'get',
+        body: JSON.stringify({
             uid: 100500,
-        }
+        })
     })
 })
 
