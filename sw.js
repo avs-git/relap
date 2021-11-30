@@ -13,7 +13,8 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-    console.log('Происходит запрос на сервер', event);
+    console.log('Происходит запрос на сервер', event.request);
+    console.log('!!!!!', event.request);
 
     event.respondWith(
         caches.match(event.request)
