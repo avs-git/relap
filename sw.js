@@ -12,17 +12,21 @@ self.addEventListener('activate', (event) => {
     console.log('Активирован');
 });
 
-self.addEventListener('fetch', (event) => {
-    console.log('Происходит запрос на сервер', event.request);
-    console.log('!!!!!', event.request);
+self.addEventListener("fetch", (event) => {
+    console.log("Происходит запрос на сервер", event.request);
+    console.log("!!!!!", event.request);
 
     event.respondWith(
-        caches.match(event.request)
-            .then((resp) => {
-                console.log('!!!!! event.request', event.request);
-                return resp || caches.open('uid-cache-v1').then((cache) => {
-                            cache.put(event.request, response.clone());
-                            return response;
-                        });
-                    })
-            )});
+        caches.match(event.request).then((resp) => {
+            console.log("!!!!! event.request", resp);
+            return (
+                resp ||
+                caches.open("uid-cache-v1").then((cache) => {
+                    const response = new Response({ uid: "123" });
+                    cache.put(event.request, response.clone());
+                    return response;
+                })
+            );
+        })
+    );
+});
