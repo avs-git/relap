@@ -1,4 +1,4 @@
-const CACHE = 'network-or-cache-v1';
+const CACHE = 'uid-cache-v1';
 
 self.addEventListener('install', (event) => {
     event.waitUntil(
@@ -13,17 +13,15 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
+    console.log('Происходит запрос на сервер', event);
+
     event.respondWith(
         caches.match(event.request)
             .then((resp) => {
                 console.log('!!!!! event.request', event.request);
-                return resp || fetch(event.request)
-                    .then((response) => {
-                        return caches.open('v1').then((cache) => {
+                return resp || caches.open('uid-cache-v1').then((cache) => {
                             cache.put(event.request, response.clone());
                             return response;
                         });
-                    });
-            }))
-    console.log('Происходит запрос на сервер', event);
-});
+                    })
+            )});
