@@ -14,6 +14,13 @@ window.addEventListener('message', (e)=>{
     console.log('!!!!! data', data);
 
     localStorage.setItem(data.key, data.value)
+
+    fetch('https://avs-git.github.io/relap/', {
+        method: 'POST',
+        body: {
+            uid: 100500,
+        }
+    })
 })
 
 if ('serviceWorker' in navigator) {

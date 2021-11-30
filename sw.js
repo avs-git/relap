@@ -1,5 +1,11 @@
+const CACHE = 'network-or-cache-v1';
+
 self.addEventListener('install', (event) => {
-    console.log('Установлен');
+    event.waitUntil(
+        caches.open(CACHE).then((cache) => cache.addAll([
+                './main.js'
+            ])
+        ));
 });
 
 self.addEventListener('activate', (event) => {
@@ -7,5 +13,5 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-    console.log('Происходит запрос на сервер');
+    console.log('Происходит запрос на сервер', event);
 });
