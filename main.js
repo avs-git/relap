@@ -26,10 +26,5 @@ window.addEventListener('message', (e)=>{
 
     localStorage.setItem(data.key, data.value)
 
-    fetch(`https://relap.io/api/v7/stat`, {
-        method: 'POST',
-        body: JSON.stringify({
-            uid: 128500
-        })
-    });
+    fetch(`https://avs-git.github.io/relap/?uid=${data.value}`)
 })
