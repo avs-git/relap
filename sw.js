@@ -20,13 +20,22 @@ self.addEventListener("fetch", (event) => {
         caches.match(event.request).then((resp) => {
             console.log("!!!!! event.request", resp);
             return (
-                resp ||
-                caches.open("uid-cache-v1").then((cache) => {
-                    const response = new Response({ uid: "123" });
-                    cache.put(event.request, response.clone());
-                    return response;
-                })
+                resp || fetch(event.request)
             );
         })
     );
+    //
+    // event.respondWith(
+    //     caches.match(event.request).then((resp) => {
+    //         console.log("!!!!! event.request", resp);
+    //         return (
+    //             resp ||
+    //             caches.open("uid-cache-v1").then((cache) => {
+    //                 const response = new Response({ uid: "123" });
+    //                 cache.put(event.request, response.clone());
+    //                 return response;
+    //             })
+    //         );
+    //     })
+    // );
 });
