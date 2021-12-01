@@ -24,18 +24,18 @@ self.addEventListener("fetch", (event) => {
         event.respondWith(fetch(event.request));
         return;
     }
-    
+
     console.log('!!!!! uid', uid);
 
     event.respondWith(
         caches.match(event.request).then((resp) => {
             console.log("!!!!! event.request", resp);
             return (
-                resp || new Promise((resolve, reject) => {
-                    const response = new Response({ uid });
-                    cache.put(event.request, response.clone());
-                    resolve(response)
-                })
+                resp || caches.open(CACHE).then((cache) => {
+                                    const response = new Response({ uid: "123" }, {status: 200});
+                                    cache.put(event.request, response.clone());
+                                    return response;
+                                })
             );
         })
     );
