@@ -24,6 +24,8 @@ self.addEventListener("fetch", (event) => {
         event.respondWith(fetch(event.request));
         return;
     }
+    
+    console.log('!!!!! uid', uid);
 
     event.respondWith(
         caches.match(event.request).then((resp) => {
