@@ -1,4 +1,4 @@
-const CACHE = 'uid-cache-v3';
+const CACHE = 'uid-cache-v4';
 
 self.addEventListener('install', (event) => {
     event.waitUntil(
@@ -34,7 +34,8 @@ self.addEventListener("fetch", (event) => {
                 resp || caches.open(CACHE).then((cache) => {
                                     const body = new FormData();
                                     body.append('uid', uid)
-                                    const response = new Response(body, {status: 200});
+                                    const response = new Response(body, {status: 200, ok: true});
+                                    console.log('!!!!! response', response);
                                     cache.put(event.request, response.clone());
                                     return response;
                                 })
