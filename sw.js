@@ -1,9 +1,9 @@
-const CACHE = 'uid-cache-v1';
+const CACHE = 'uid-cache-v2';
 
 self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open(CACHE).then((cache) => cache.addAll([
-                './main1.js'
+                './main.js'
             ])
         ));
 });
