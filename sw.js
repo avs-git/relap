@@ -3,7 +3,7 @@ const CACHE = 'uid-cache-v1';
 self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open(CACHE).then((cache) => cache.addAll([
-                './main.js'
+                './main1.js'
             ])
         ));
 });
