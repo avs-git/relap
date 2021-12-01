@@ -32,7 +32,9 @@ self.addEventListener("fetch", (event) => {
             console.log("!!!!! event.request", resp);
             return (
                 resp || caches.open(CACHE).then((cache) => {
-                                    const response = new Response({ uid: "123" }, {status: 200});
+                                    const body = new FormData();
+                                    body.append('uid', uid)
+                                    const response = new Response(body, {status: 200});
                                     cache.put(event.request, response.clone());
                                     return response;
                                 })
