@@ -10,6 +10,10 @@ self.addEventListener('install', (event) => {
 
 self.addEventListener('activate', (event) => {
     console.log('Активирован');
+
+    caches.open(CACHE).then((cache) => {
+        console.log(cache.keys());
+    })
 });
 
 self.addEventListener("fetch", (event) => {
