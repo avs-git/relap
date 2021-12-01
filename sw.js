@@ -1,4 +1,4 @@
-const CACHE = 'uid-cache-v2';
+const CACHE = 'uid-cache-v3';
 
 self.addEventListener('install', (event) => {
     event.waitUntil(
@@ -16,11 +16,24 @@ self.addEventListener("fetch", (event) => {
     console.log("Происходит запрос на сервер");
     console.log("!!!!!", event.request);
 
+    const { url } = event.request;
+
+    const uid = new URL(url).searchParams.get('uid');
+
+    if (!uid) {
+        event.respondWith(fetch(event.request));
+        return;
+    }
+
     event.respondWith(
         caches.match(event.request).then((resp) => {
             console.log("!!!!! event.request", resp);
             return (
-                resp || fetch(event.request)
+                resp || new Promise((resolve, reject) => {
+                    const response = new Response({ uid });
+                    cache.put(event.request, response.clone());
+                    resolve(response)
+                })
             );
         })
     );
